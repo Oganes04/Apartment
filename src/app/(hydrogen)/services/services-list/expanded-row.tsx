@@ -13,7 +13,7 @@ export default function ExpandedOrderRow({ record }: any) {
         <div className='flex items-center gap-20'> 
 
             <Input placeholder='Логин' type='text'  defaultValue={record.login} label = 'Логин'></Input>
-            <Input placeholder='Пароль'  defaultValue={record.password} type='password' label = 'Пароль'></Input>
+            <Input placeholder='Пароль'  defaultValue={record.password} type='text' label = 'Пароль'></Input>
             <Input placeholder='Ключ'  defaultValue={record.key} label = 'API Ключ'></Input>
         </div>
 

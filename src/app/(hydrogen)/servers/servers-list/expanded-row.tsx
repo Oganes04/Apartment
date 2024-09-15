@@ -14,7 +14,7 @@ export default function ExpandedOrderRow({ record }: any) {
             <Input placeholder='Название'  defaultValue={record.name} label = 'Название'></Input>
             <Input placeholder='IP'  defaultValue={record.ip} label = 'IP'></Input>
             <Input placeholder='Логин' type='text'  defaultValue={record.login} label = 'Логин'></Input>
-            <Input placeholder='Пароль'  defaultValue={record.password} type='password' label = 'Пароль'></Input>
+            <Input placeholder='Пароль'  defaultValue={record.password} type='text' label = 'Пароль'></Input>
            
         </div>
 
