@@ -1,0 +1,18 @@
+{
+    "ru": {
+        "serverName": "Название",
+        "serverIP": "IP",
+        "serverLogin": "Логин",
+        "serverPassword": "Пароль",
+        "toast": "Сервер успешно добавлен",
+        "addButton": "Добавить"
+    },
+    "en": {
+        "serverName": "Name",
+        "serverIP": "IP",
+        "serverLogin": "Login",
+        "serverPassword": "Password",
+        "toast": "Server successfully added",
+        "addButton": "Add"
+    }
+}

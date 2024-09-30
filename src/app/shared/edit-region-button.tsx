@@ -22,7 +22,7 @@ type EditRegionButtonProps = {
 
 export default function EditRegionButton({
   title,
-  modalBtnLabel = 'Редактировать регион',
+  modalBtnLabel,
   className,
   buttonLabel = '',
   id,
@@ -36,10 +36,7 @@ export default function EditRegionButton({
         openModal({
           view: (
             <EditRegionForm
-              label={cn('Редактировать')}
-              accept="csv"
-              multiple={false}
-              btnLabel={modalBtnLabel}
+              label={modalBtnLabel}
               id={id}
             />
           ),

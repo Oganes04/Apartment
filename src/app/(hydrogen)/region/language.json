@@ -1,0 +1,26 @@
+{
+    "ru": {
+        "pageTitle": "Список регионов",
+        "nameColumn": "Имя",
+        "saveButton": "Сохранить",
+        "regionName": "Название",
+        "regionObjects": "Объектов",
+        "addButton": "Добавить",
+        "AddRegionModalTitle": "Добавить регион",
+        "deleteToolTipTitle": "Удалить",
+        "deleteToolTipText": "Вы уверены, что хотите удалить",
+        "edit": "Редактировать регион"
+    },
+    "en": {
+        "pageTitle": "Region list",
+        "nameColumn": "Name",
+        "saveButton": "Save",
+        "regionName": "Name",
+        "regionObjects": "Objects",
+        "addButton": "Add",
+        "AddRegionModalTitle": "Add region",
+        "deleteToolTipTitle": "Delete",
+        "deleteToolTipText": "Are you sure you want to delete" ,
+        "edit": "Edit region"
+    }
+}

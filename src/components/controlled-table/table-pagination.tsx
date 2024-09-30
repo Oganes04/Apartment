@@ -3,6 +3,20 @@ import Pagination, { type PaginationProps } from '@/components/ui/pagination';
 import { Select } from 'rizzui';
 import cn from '@/utils/class-names';
 
+
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './language.json';
+import { Language } from '@/components/settings/language-types'
+
+type Columns = {
+  sortConfig?: any;
+  onDeleteItem: (id: string) => void;
+  onHeaderCellClick: (value: string) => void;
+  onChecked?: (event: React.ChangeEvent<HTMLInputElement>, id: string) => void;
+};
+
+
 const paginationLimitOptions = [5, 10, 15, 20, 25].map((v, idx) => ({
   id: idx,
   label: String(v),
@@ -22,6 +36,12 @@ export default function TablePagination({
   paginatorClassName = 'mt-5 xs:mt-6 sm:mt-7',
   ...props
 }: TablePaginationProps) {
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
   return (
     <div
       className={cn(
@@ -32,7 +52,7 @@ export default function TablePagination({
       {!setPageSize ? (
         total && (
           <div className="hidden text-gray-500 sm:inline-flex">
-            {props.current} из {Math.ceil(total / pageSize)} стр.
+            {props.current} {translation.paginationOf} {Math.ceil(total / pageSize)} {translation.paginationPage}
           </div>
         )
       ) : (

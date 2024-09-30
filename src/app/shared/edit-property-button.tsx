@@ -23,7 +23,7 @@ type EditPropertyButtonProps = {
 
 export default function EditPropertyButton({
   title,
-  modalBtnLabel = '',
+  modalBtnLabel,
   className,
   buttonLabel = '',
   id,
@@ -38,7 +38,7 @@ export default function EditPropertyButton({
          openModal({
            view: (
              <EditPropertyForm
-               label={'Редактировать'}
+               label={modalBtnLabel}
                 id={cn(id)}
              />
            ),

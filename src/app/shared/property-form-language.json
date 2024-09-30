@@ -1,0 +1,16 @@
+{
+    "ru": {
+        "propertyType": "Тип недвижимости",
+        "addButton": "Добавить",
+        "saveButton": "Сохранить",
+        "addToast": "Тип недвижимости успешно добавлен!",
+        "editToast": "Тип недвижимости успешно обновлен!"
+    },
+    "en": {
+       "propertyType": "Property type",
+       "addButton": "Add",
+       "saveButton": "Save",
+       "addToast": "Property type has been successfully added!",
+       "editToast": "Property type has been successfully updated!"
+    }
+}

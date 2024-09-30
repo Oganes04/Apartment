@@ -1,0 +1,24 @@
+{
+    "ru": {
+        "pageTitle": "Типы недвижимости",
+        "nameColumn": "Название",
+        "objectsColumn": "Объектов",
+        "saveButton": "Сохранить",
+        "addButton": "Добавить",
+        "AddPropertyModalTitle": "Добавить недвижимость",
+        "deleteToolTipTitle": "Удалить",
+        "deleteToolTipText": "Вы уверены, что хотите удалить",
+        "edit": "Редактировать"
+    },
+    "en": {
+        "pageTitle": "Property types",
+        "nameColumn": "Name",
+        "objectsColumn": "Objects",
+        "saveButton": "Save",
+        "addButton": "Add",
+        "AddPropertyModalTitle": "Add property",
+        "deleteToolTipTitle": "Delete",
+        "deleteToolTipText": "Are you sure you want to delete" ,
+        "edit": "Edit"
+    }
+}

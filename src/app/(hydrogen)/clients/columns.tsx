@@ -1,19 +1,22 @@
 'use client';
 
 import { HeaderCell } from '@/components/ui/table';
-import { Badge, Text, Tooltip, ActionIcon, Input, Button, Switch, cn } from 'rizzui';
-import DeletePopover from '@/app/shared/delete-popover';
+import { Badge, Text, Tooltip, ActionIcon, Input, Button, Switch, cn, Select } from 'rizzui';
 import { Img } from '@react-email/img';
-import EditRegionButton from '@/app/shared/edit-region-button';
+
 import Link from 'next/link';
-import PencilIcon from '@/components/icons/pencil';
+
 import { routes } from '@/config/routes';
-import EditRegionForm from '@/app/shared/edit-region-form';
-import { PiCalendarPlus, PiInfo } from 'react-icons/pi';
-import EditSubscribtionButton from '@/app/shared/edit-subscribtion-button';
-import StatusField from '@/components/controlled-table/status-field';
-import { appointmentTypesOptions } from '@/app/shared/appointment/appointment-list/list';
-import InfoReservationButton from '@/app/shared/info-reservation-button';
+import { PiInfo } from 'react-icons/pi';
+
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { ClientStatusFormTypes, clientStatusFormSchema, defaultValues } from '@/utils/validators/client-status.schema';
+import { Form } from '@/components/ui/form';
+import toast from 'react-hot-toast';
+
+  const onSubmit: SubmitHandler<ClientStatusFormTypes> = (data) => {
+    toast.success(<Text as="b">Клиент успешно обновлен!</Text>);
+  };
 type Columns = {
   sortConfig?: any;
   onDeleteItem: (id: string) => void;
@@ -132,27 +135,50 @@ export const getUserColumns = ({
     key: 'status',
     width: 150,
     render: (value: string) => (
-      <StatusField
-              dropdownClassName="!z-10"
-              className="w-full min-w-[80px] @[35rem]:w-auto"
-              placeholder="Оценка"
-              options={statusOptions}
-              // value={filters['type']}
-              onChange={(value: string) => {
-                updateFilter('type', value);
-              }}
-              getOptionValue={(option: { value: any }) => option.value}
-              displayValue={(selected: string) =>
-                appointmentTypesOptions.find(
-                  (option) => option.label === selected
-                )?.label ?? ''
-              }
-              placement="bottom-start"
-              // {...(isMediumScreen && {
-              //   label: 'Service Type',
-              //   labelClassName: 'font-medium text-gray-700',
-              // })}
-            />
+      // <StatusField
+      //         dropdownClassName="!z-10"
+      //         className="w-full min-w-[80px] @[35rem]:w-auto"
+      //         placeholder="Оценка"
+      //         options={statusOptions}
+      //         getOptionValue={(option: { value: any }) => option.value}
+      //         displayValue={(selected: string) =>
+      //           statusOptions.find(
+      //             (option) => option.label === selected
+      //           )?.label ?? ''
+      //         }
+      //         placement="bottom-start"
+         
+      //       />
+      <Form<ClientStatusFormTypes>
+      validationSchema={clientStatusFormSchema}
+      // resetValues={reset}
+      onSubmit={onSubmit}
+      className="@container"
+      useFormProps={{
+        mode: 'onChange',
+      }}
+    >
+       {({ register, control, setValue, getValues, formState: { errors } }) => {
+          return (
+            <Controller
+            name="status"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                options={statusOptions}
+                value={value}
+                onChange={onChange}
+                label=""
+                getOptionValue={(option) => option.label}
+                inPortal={true}
+                placeholder=' '
+                
+              />
+            )}
+          />
+          );
+       }}
+       </Form>
     ),
   },
 
@@ -187,11 +213,6 @@ className={cn('w-full @lg:w-auto hover:!border-gray-900 hover:text-gray-700 bord
 ];
 
 
-function openModal(arg0: { view: import("react").JSX.Element; customSize: string; }): void {
-  throw new Error('Function not implemented.');
-}
 
 
-function updateFilter(arg0: string, value: string) {
-  throw new Error('Function not implemented.');
-}
+

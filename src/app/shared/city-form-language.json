@@ -1,0 +1,22 @@
+{
+    "ru": {
+      "cityName": "Название города",
+      "cityRegion": "Выберите регион",
+      "cityServer": "Выберите сервер",
+      "addButton": "Добавить",
+      "saveButton": "Сохранить",
+      "editTitle": "Редактировать",
+      "addToast": "Город успешно добавлен!",
+      "editToast": "Город успешно обновлен!"
+    },
+    "en": {
+        "cityName": "City name",
+        "cityRegion": "city region",
+        "cityServer": "Select a server",
+        "addButton": "Add",
+        "saveButton": "Save",
+        "editTitle": "Edit",
+        "addToast": "The city has been successfully added!",
+        "editToast": "The city has been successfully updated!"
+    }
+}

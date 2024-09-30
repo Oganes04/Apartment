@@ -1,0 +1,27 @@
+    {
+        "ru": {
+        "widgetTitle": "Виджет",
+        "breadcrumbMain": "Главная",
+        "widgetHeader": "Виджет на сайт",
+        "widgetCodeHeader": "Код виджета на сайт",
+        "widgetCodeDescription1": "Данный код должен быть размещен в <head></head>",
+        "widgetCodeDescription2": "Данный код должен быть размещен в <body></body>",
+        "widgetCodeHeader2": "Код страницы объекта",
+        "downloadButton": "Скачать",
+        "downloadTitle": "Скачать сайт объекта",
+        "downloadToast": "Сайт объекта успешно скачан"
+        },
+        "en": {
+        "widgetTitle": "Widget",
+        "breadcrumbMain": "Home",
+        "widgetHeader": "Widget for the website",
+        "widgetCodeHeader": "Widget code for the website",
+        "widgetCodeDescription1": "The code must be placed before the closing </body> tag",
+        "widgetCodeDescription2": "The code must be placed before the closing </body> tag",
+        "widgetCodeHeader2": "Код страницы объекта",
+        "downloadButton": "Download",
+        "downloadTitle": "Download the site of the object",
+        "downloadToast": "The site has been successfully downloaded"
+        }
+    }
+    

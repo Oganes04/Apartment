@@ -1,0 +1,32 @@
+{
+    "ru": {
+        "pageTitle": "Серверы",
+        "nameColumn": "Имя",
+        "defaultServer": "Сервер по умолчанию",
+        "saveButton": "Сохранить",
+        "serverName": "Название",
+        "serverIP": "IP",
+        "serverLogin": "Логин",
+        "serverPassword": "Пароль",
+        "emptyTable": "Пока пусто",
+        "toast": "Сервер успешно обновлен",
+        "toastDefaultServer": "Сервер по умолчанию успешно выбран",
+        "addButton": "Добавить",
+        "AddServerModalTitle": "Добавить сервер"
+    },
+    "en": {
+        "pageTitle": "Servers",
+        "nameColumn": "Name",
+        "defaultServer": "Default server",
+        "saveButton": "Save",
+        "serverName": "Name",
+        "serverIP": "IP",
+        "serverLogin": "Login",
+        "serverPassword": "Password",
+        "emptyTable": "It's empty for now",
+        "toast": "Server successfully updated",
+        "toastDefaultServer": "The default server has been successfully selected",
+        "addButton": "Add",
+        "AddServerModalTitle": "Add serrver"
+    }
+}

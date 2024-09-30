@@ -1,10 +1,15 @@
-import { Metadata } from "next";
-import { getWidgetColumns } from '@/app/shared/cities-list/typecolumns';
+'use client';
+
+import { getWidgetColumns } from './columns';
 import TableLayout from '@/app/(hydrogen)/tables/table-layout';
 import { cityData } from '@/data/city-data';
 import BasicTableWidget from "@/components/controlled-table/basic-table-widget";
-import ImportButton from "@/app/shared/import-button";
 import AddCityButton from "@/app/shared/add-city-button";
+
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './language.json';
+import { Language } from '@/components/settings/language-types'
 
 const citiesList = cityData.flatMap(data => data.cities.map(city => ({
   id: city.id,
@@ -14,11 +19,6 @@ const citiesList = cityData.flatMap(data => data.cities.map(city => ({
   status: city.status,
 })));
 
-
-// SEO metadata
-export const metadata: Metadata = {
-  title: "Города | StayFlex",
-};
 
 const pageHeader = {
   title: "Города",
@@ -34,12 +34,19 @@ const pageHeader = {
 };
 
 export default function NewPage() {
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+
+
   return (
     <>
       <div className="mt-4 mb-4 flex items-center justify-between gap-3 @lg:mt-0">
-          {/* <ExportButton data={data} fileName={fileName} header={header} /> */}
-          <h3 style={{paddingLeft: '3px'}}>Список городов</h3>
-          <AddCityButton className="w-fit" title={'Import File'} />
+          <h3 style={{paddingLeft: '3px'}}>{translation.pageTitle}</h3>
+          <AddCityButton className="w-fit" title={''} modalBtnLabel={translation.AddCityModalTitle} buttonLabel={translation.addButton} />
         </div>
        
 

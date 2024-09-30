@@ -1,0 +1,10 @@
+{
+    "ru": {
+        "paginationPage": "стр.",
+        "paginationOf": "из"
+    },
+    "en": {
+        "paginationPage": "pages",
+        "paginationOf": "of"
+    }
+}

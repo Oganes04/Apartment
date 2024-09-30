@@ -19,9 +19,9 @@ type AddRegionButtonProps = {
 
 export default function AddRegionButton({
   title,
-  modalBtnLabel = 'Добавить регион',
+  modalBtnLabel,
   className,
-  buttonLabel = 'Добавить',
+  buttonLabel,
 }: React.PropsWithChildren<AddRegionButtonProps>) {
   const { openModal } = useModal();
 
@@ -31,7 +31,7 @@ export default function AddRegionButton({
         openModal({
           view: (
             <AddRegionForm
-              label='Добавить регион'
+              label={modalBtnLabel}
               accept="csv"
               multiple={false}
               btnLabel={modalBtnLabel}

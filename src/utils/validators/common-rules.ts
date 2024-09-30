@@ -9,6 +9,13 @@ export const fileSchema = z.object({
 
 export type FileSchema = z.infer<typeof fileSchema>;
 
+export const validatePhone = z
+  .string()
+  .min(1, { message: messages.phoneNumberIsRequired })
+  .regex(/^(\+7|7|8)?\s*\(?(\d{3})\)?\s*([\d\s()-]{6})$/, {
+    message: messages.phoneNumberIsRequired,
+  })
+
 export const validateEmail = z
   .string()
   .min(1, { message: messages.emailIsRequired })

@@ -20,9 +20,9 @@ type AddCityButtonProps = {
 
 export default function AddServerButton({
   title,
-  modalBtnLabel = 'Добавить сервер',
+  modalBtnLabel,
   className,
-  buttonLabel = 'Добавить',
+  buttonLabel,
 }: React.PropsWithChildren<AddCityButtonProps>) {
   const { openModal } = useModal();
 
@@ -32,7 +32,7 @@ export default function AddServerButton({
         openModal({
           view: (
             <AddServerForm
-              label='Добавить сервер'
+              label={modalBtnLabel}
             />
           ),
           customSize: '480px',

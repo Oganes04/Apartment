@@ -1,22 +1,21 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import {
-  PiArrowLineDownBold,
-  PiFile,
-  PiFileCsv,
-  PiFileDoc,
-  PiFilePdf,
-  PiFileXls,
-  PiFileZip,
-  PiTrashBold,
   PiXBold,
 } from 'react-icons/pi';
 import { ActionIcon, Title, Text, Button, Input, cn } from 'rizzui';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import FormGroup from './form-group';
 
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { СonveniencesFormTypes, conveniencesFormSchema, defaultValues } from '@/utils/validators/conveniences.schema';
+import { Form } from '@/components/ui/form';
+import toast from 'react-hot-toast';
+
+  const onSubmit: SubmitHandler<СonveniencesFormTypes> = (data) => {
+    toast.success(<Text as="b">Удобство успешно изменено!</Text>);
+  };
 
 
 
@@ -47,9 +46,23 @@ export default function EditConveniencesForm({
         </ActionIcon>
       </div>
 
+      <Form<СonveniencesFormTypes>
+      validationSchema={conveniencesFormSchema}
+      // resetValues={reset}
+      onSubmit={onSubmit}
+      className="@container"
+      useFormProps={{
+        mode: 'onChange',
+    
+      }}
+    >
+       {({ register, control, setValue, getValues, formState: { errors } }) => {
+          return (
+
+
       <FormGroup
       title=""
-    >
+      >
         <label htmlFor="fileInputIcon" style={{cursor: "pointer", padding: '5px 15px', width: "fit-content", borderRadius: "5px", border: "1px solid #ccc"}}>
           Выберите иконку
         <input type="file" id="fileInputIcon" style={{display: "none"}} />
@@ -59,12 +72,16 @@ export default function EditConveniencesForm({
         placeholder=" "
         defaultValue={cn(id)}
         label = 'Удобство'
+        {...register('name')}
+        error={errors.name?.message}
       />
       <Button type="submit" className="w-full @xl:w-auto">
         {'Сохранить'}
       </Button>
     </FormGroup>
-      
+          );
+       }}
+       </Form>
     </div>
   );
 }

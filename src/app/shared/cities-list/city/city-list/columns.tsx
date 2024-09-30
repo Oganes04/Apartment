@@ -76,44 +76,7 @@ export const getWidgetColumns = ({
       <div className="flex items-center justify-end gap-3 pe-4">
             
             <Switch label="" />
-            <EditRegionButton className="w-fit" title={''} id={row.name} />
-            
-            {/* <Tooltip
-              size="sm"
-              content={'Редактировать'}
-              placement="top"
-              color="invert"
-            >
-              <Link href={routes.invoice.edit(row.id)}>
-                <ActionIcon
-                  as="span"
-                  size="sm"
-                  variant="outline"
-                  className="hover:!border-gray-900 hover:text-gray-700"
-                >
-                  <PencilIcon className="h-4 w-4" />
-                </ActionIcon>
-              </Link>
-            </Tooltip> */}
-            {/* <Tooltip
-              size="sm"
-              content={'Показать / Скрыть'}
-              placement="top"
-              color="invert"
-            >
-              <Link href={routes.invoice.details(row.id)}>
-                <ActionIcon
-                  as="span"
-                  size="sm"
-                  variant="outline"
-                  className="hover:!border-gray-900 hover:text-gray-700"
-                >
-                  <EyeIcon className="h-4 w-4" />
-                </ActionIcon>
-              </Link>
-            </Tooltip> */}
-
-            
+            <EditRegionButton className="w-fit" title={''} id={row.name} />          
             
 
         <DeletePopover

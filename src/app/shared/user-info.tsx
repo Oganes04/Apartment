@@ -13,11 +13,10 @@ import {
   personalInfoFormSchema,
   PersonalInfoFormTypes,
 } from '@/utils/validators/personal-info.schema';
-import UploadZone from '@/components/ui/file-upload/upload-zone';
-import { countries, roles, timezones } from '@/data/forms/my-details';
-import AvatarUpload from '@/components/ui/file-upload/avatar-upload';
 import { DatePicker } from '@/components/ui/datepicker';
-import PasswordSettingsView from './account-settings/password-settings';
+
+import React, { useState } from 'react';
+
 
 const Select = dynamic(() => import('rizzui').then((mod) => mod.Select), {
   ssr: false,
@@ -55,11 +54,15 @@ export const tariffData = [
 
 export default function UserInfoView() {
   const onSubmit: SubmitHandler<PersonalInfoFormTypes> = (data) => {
-    toast.success(<Text as="b">Successfully added!</Text>);
+    toast.success(<Text as="b">Пользователь успешно добавлен!</Text>);
     console.log('Profile settings data ->', {
       ...data,
     });
   };
+
+  
+
+  
 
   return (
     <Form<PersonalInfoFormTypes>
@@ -94,12 +97,6 @@ export default function UserInfoView() {
                   error={errors.first_name?.message}
                   className="flex-grow"
                 />
-                {/* <Input
-                  placeholder="Last Name"
-                  {...register('last_name')}
-                  error={errors.last_name?.message}
-                  className="flex-grow"
-                /> */}
               </FormGroup>
 
               <FormGroup
@@ -129,23 +126,10 @@ export default function UserInfoView() {
                   }
                   type="tel"
                   placeholder="+7 (777) 777-77-77"
+                  {...register('phone')}
+                  error={errors.phone?.message}
                 />
               </FormGroup>
-{/* 
-              <FormGroup
-                title="Логотип"
-                description="Вы можете разместить ваш логотип"
-                className="pt-7 @2xl:pt-9 @3xl:grid-cols-12 @3xl:pt-11"
-              >
-                <div className="flex flex-col gap-6 @container @3xl:col-span-2">
-                  <AvatarUpload
-                    name="avatar"
-                    setValue={setValue}
-                    getValues={getValues}
-                    error={errors?.avatar?.message as string}
-                  />
-                </div>
-              </FormGroup> */}
 
               <FormGroup
                 title="Тариф"

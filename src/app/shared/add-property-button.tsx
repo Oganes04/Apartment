@@ -20,9 +20,9 @@ type AddPropertyButtonProps = {
 
 export default function AddPropertyButton({
   title,
-  modalBtnLabel = 'Добавить регион',
+  modalBtnLabel,
   className,
-  buttonLabel = 'Добавить',
+  buttonLabel,
 }: React.PropsWithChildren<AddPropertyButtonProps>) {
   const { openModal } = useModal();
 
@@ -32,7 +32,7 @@ export default function AddPropertyButton({
         openModal({
           view: (
             <AddPropertyForm
-              label='Добавить недвижимость'
+              label={modalBtnLabel}
               btnLabel={''}
             />
           ),

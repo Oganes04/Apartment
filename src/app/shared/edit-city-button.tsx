@@ -24,7 +24,7 @@ type EditCityButtonProps = {
 
 export default function EditCityButton({
   title,
-  modalBtnLabel = 'Редактировать город',
+  modalBtnLabel,
   className,
   buttonLabel = '',
   id,
@@ -39,7 +39,7 @@ export default function EditCityButton({
         openModal({
           view: (
             <EditCityForm
-              label={cn('Редактировать')}
+              label={modalBtnLabel}
               id={id}
               region={region}
             />

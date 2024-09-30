@@ -10,18 +10,16 @@ export default function ExpandedOrderRow({ record }: any) {
   return (
     <div className="">
       
-        <div className='flex items-center gap-20'> 
+  
+        <><div className='flex items-center gap-20'>
 
-            <Input placeholder='Логин' type='text'  defaultValue={record.login} label = 'Логин'></Input>
-            <Input placeholder='Пароль'  defaultValue={record.password} type='text' label = 'Пароль'></Input>
-            <Input placeholder='Ключ'  defaultValue={record.key} label = 'API Ключ'></Input>
-        </div>
-
-        <div className='flex items-center justify-end mt-5'>
-          <Button className={cn('w-fit @lg:w-auto', )}>Сохранить</Button>
-        </div>
-        
-
+              <Input placeholder='Логин' type='text' label='Логин'></Input>
+              <Input placeholder='Пароль' defaultValue={record.password} type='text' label='Пароль'></Input>
+              <Input placeholder='Ключ' defaultValue={record.key} label='API Ключ'></Input>
+            </div><div className='flex items-center justify-end mt-5'>
+                <Button type='submit' className={cn('w-fit @lg:w-auto')}>Сохранить</Button>
+              </div></>
+ 
     </div>
     
   );

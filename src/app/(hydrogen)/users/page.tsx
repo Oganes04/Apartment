@@ -1,22 +1,25 @@
-import { Metadata } from "next";
+
+'use client';
+
 import { getUserColumns } from './columns';
 import TableLayout from '@/app/(hydrogen)/tables/table-layout';
 import { userData } from '@/data/user-data';
 import BasicTableWidget from "@/components/controlled-table/basic-table-widget";
-import AddRegionButton from "@/app/shared/add-region-button";
-import { ActionIcon, Button, Tooltip, cn } from "rizzui";
+import { Button } from "rizzui";
 import Link from "next/link";
 import { routes } from "@/config/routes";
 import { PiListPlusBold } from "react-icons/pi";
 
 
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './language.json';
+import { Language } from '@/components/settings/language-types'
 
 
 
-// SEO metadata
-export const metadata: Metadata = {
-  title: "Пользователи | StayFlex",
-};
+
+
 
 const pageHeader = {
   title: "Пользователи",
@@ -32,18 +35,31 @@ const pageHeader = {
 };
 
 export default function NewPage() {
+
+  const langFromCookie1 = Cookies.get('language');
+  console.log('Language from cookie:', langFromCookie1);
+
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+
+
   return (
     <><>
       <div className="mt-4 mb-4 flex items-center justify-between gap-3 @lg:mt-0">
-          {/* <ExportButton data={data} fileName={fileName} header={header} /> */}
-          <h3 style={{paddingLeft: '3px'}} >Список пользователей</h3>
+
+          <h3 style={{paddingLeft: '3px'}} >{translation.pageTitle}</h3>
     
               <Link href={routes.users.create}>
                 <Button
                   className={'w-full @lg:w-auto'}
                 >
                   <PiListPlusBold className="me-1.5 h-[17px] w-[17px]" />
-                  {'Добавить'}
+                  {translation.addButton}
                 </Button>
               </Link>
           

@@ -1,0 +1,28 @@
+{
+    "ru": {
+        "pageTitle": "Список городов",
+        "nameColumn": "Имя",
+        "saveButton": "Сохранить",
+        "cityName": "Название",
+        "regionName": "Регион",
+        "cityObjects": "Объектов",
+        "addButton": "Добавить",
+        "AddCityModalTitle": "Добавить город",
+        "deleteToolTipTitle": "Удалить",
+        "deleteToolTipText": "Вы уверены, что хотите удалить",
+        "edit": "Редактировать город"
+    },
+    "en": {
+        "pageTitle": "Cities list",
+        "nameColumn": "Name",
+        "saveButton": "Save",
+        "cityName": "Name",
+        "regionName": "Region",
+        "cityObjects": "Objects",
+        "addButton": "Add",
+        "AddCityModalTitle": "Add city",
+        "deleteToolTipTitle": "Delete",
+        "deleteToolTipText": "Are you sure you want to delete" ,
+        "edit": "Edit city"
+    }
+}

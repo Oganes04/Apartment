@@ -1,0 +1,18 @@
+{
+    "ru": {
+        "defaultServer": "Выберите сервер",
+        "saveButton": "Сохранить",
+        "regionName": "Название",
+        "addButton": "Добавить",
+        "toastAdd": "Регион успешно добавлен!",
+        "toastEdit": "Регион успешно обновлен!"
+    },
+    "en": {
+        "defaultServer": "Select a server",
+        "saveButton": "Save",
+        "regionName": "Name",
+        "addButton": "Add",
+        "toastAdd": "Region successfully added!",
+        "toastEdit": "Region successfully updated!"
+    }
+}

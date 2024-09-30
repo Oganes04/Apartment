@@ -1,21 +1,23 @@
 'use client';
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import {
-  PiArrowLineDownBold,
-  PiFile,
-  PiFileCsv,
-  PiFileDoc,
-  PiFilePdf,
-  PiFileXls,
-  PiFileZip,
-  PiTrashBold,
   PiXBold,
 } from 'react-icons/pi';
 import { ActionIcon, Title, Text, Button, Input, Select } from 'rizzui';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import FormGroup from './form-group';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { ServersInfoFormTypes, serversInfoFormSchema, defaultValues } from '@/utils/validators/servers-info.schema';
+import { Form } from '@/components/ui/form';
+import toast from 'react-hot-toast';
+
+
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+import translations from './add-server-form-language.json';
+import { Language } from '@/components/settings/language-types'
+
+ 
 
 export default function AddServerForm({
   label = 'Upload Files'}) {
@@ -45,6 +47,18 @@ export default function AddServerForm({
     setIpValue(formatted); // Устанавливаем отформатированное значение
   };
 
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+
+  const onSubmit: SubmitHandler<ServersInfoFormTypes> = (data) => {
+    toast.success(<Text as="b">{translation.toast}</Text>);
+  };
+
+
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-6 flex items-center justify-between">
@@ -61,33 +75,55 @@ export default function AddServerForm({
         </ActionIcon>
       </div>
 
+      <Form<ServersInfoFormTypes>
+      validationSchema={serversInfoFormSchema}
+      // resetValues={reset}
+      onSubmit={onSubmit}
+      className="@container"
+      useFormProps={{
+        mode: 'onChange',
+        defaultValues,
+      }}
+    >
+       {({ register, control, setValue, getValues, formState: { errors } }) => {
+          return (
       <FormGroup
       title=""
     >
       <Input
         placeholder=" "
-        label='Название'
+        label={translation.serverName}
+        {...register('name')}
+        error={errors.name?.message}
       />
        <Input
           placeholder=" "
-          label="IP"
+          label={translation.serverIP}
           value={ipValue}
+          {...register('ip')}
+          error={errors.ip?.message}
           onChange={handleIpChange}
         />
       <Input
         placeholder=" "
-        label='Логин'
+        label={translation.serverLogin}
+        {...register('login')}
+        error={errors.login?.message}
       />
       <Input
         placeholder=" "
-        label='Пароль'
+        label={translation.serverPassword}
+        {...register('password')}
+        error={errors.password?.message}
       />
 
       <Button type="submit" className="w-full @xl:w-auto">
-        {'Добавить'}
+        {translation.addButton}
       </Button>
     </FormGroup>
-      
+          );
+       }}
+    </Form>
     </div>
   );
 }

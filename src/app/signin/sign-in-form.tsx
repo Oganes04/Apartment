@@ -43,15 +43,15 @@ export default function SignInForm() {
               type="email"
               size="lg"
               label="Email"
-              placeholder="Enter your email"
+              placeholder="Введите email"
               className="[&>label>span]:font-medium"
               inputClassName="text-sm"
               {...register('email')}
               error={errors.email?.message}
             />
             <Password
-              label="Password"
-              placeholder="Enter your password"
+              label="Пароль"
+              placeholder="Введите пароль"
               size="lg"
               className="[&>label>span]:font-medium"
               inputClassName="text-sm"
@@ -61,30 +61,30 @@ export default function SignInForm() {
             <div className="flex items-center justify-between pb-2">
               <Checkbox
                 {...register('rememberMe')}
-                label="Remember Me"
+                label="Запомнить меня"
                 className="[&>label>span]:font-medium"
               />
               <Link
-                href={routes.auth.forgotPassword1}
+                href={routes.auth.forgotPassword4}
                 className="h-auto p-0 text-sm font-semibold text-blue underline transition-colors hover:text-gray-900 hover:no-underline"
               >
-                Forget Password?
+                Забыли Пароль?
               </Link>
             </div>
             <Button className="w-full" type="submit" size="lg">
-              <span>Sign in</span>{' '}
+              <span>Войти</span>{' '}
               <PiArrowRightBold className="ms-2 mt-0.5 h-5 w-5" />
             </Button>
           </div>
         )}
       </Form>
       <Text className="mt-6 text-center leading-loose text-gray-500 lg:mt-8 lg:text-start">
-        Don’t have an account?{' '}
+        Нет аккаунта?{' '}
         <Link
-          href={routes.auth.signUp1}
+          href={routes.auth.signUp4}
           className="font-semibold text-gray-700 transition-colors hover:text-blue"
         >
-          Sign Up
+          Зарегистрируйтесь
         </Link>
       </Text>
     </>

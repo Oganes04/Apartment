@@ -1,24 +1,23 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import {
-  PiArrowLineDownBold,
-  PiFile,
-  PiFileCsv,
-  PiFileDoc,
-  PiFilePdf,
-  PiFileXls,
-  PiFileZip,
-  PiTrashBold,
   PiXBold,
 } from 'react-icons/pi';
 import { ActionIcon, Title, Text, Button, Input, cn, Select } from 'rizzui';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import FormGroup from './form-group';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { RegionsInfoFormTypes, regionsInfoFormSchema, defaultValues } from '@/utils/validators/regions-info.schema';
+import { Form } from '@/components/ui/form';
+import toast from 'react-hot-toast';
 
-type AcceptedFiles = 'img' | 'pdf' | 'csv' | 'imgAndPdf' | 'all';
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './region-form-language.json';
+import { Language } from '@/components/settings/language-types'
+
+
 
 
 export const serversData = [
@@ -45,22 +44,25 @@ export const serversData = [
 
 
 export default function EditRegionForm({
-  label = 'Upload Files',
-  btnLabel = 'Upload',
-  fieldLabel,
-  multiple = true,
-  accept = 'all',
+  label,
   id,
 }: {
   label?: string;
-  fieldLabel?: string;
-  btnLabel?: string;
-  multiple?: boolean;
-  accept?: AcceptedFiles;
   id?: number;
 }) {
   const { closeModal } = useModal();
   const { control } = useForm();
+
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+
+  const onSubmit: SubmitHandler<RegionsInfoFormTypes> = (data) => {
+    toast.success(<Text as="b">{translation.toastEdit}</Text>);
+  };
   return (
     <div className="m-auto px-5 pb-8 pt-5 @lg:pt-6 @2xl:px-7">
       <div className="mb-6 flex items-center justify-between">
@@ -77,23 +79,38 @@ export default function EditRegionForm({
         </ActionIcon>
       </div>
 
+      <Form<RegionsInfoFormTypes>
+      validationSchema={regionsInfoFormSchema}
+      // resetValues={reset}
+      onSubmit={onSubmit}
+      className="@container"
+      useFormProps={{
+        mode: 'onChange',
+      }}
+    >
+       {({ register, control, setValue, getValues, formState: { errors } }) => {
+          return (
+
+
       <FormGroup
       title=""
     >
       <Input
         placeholder=" "
-        label = 'Название'
+        label = {translation.regionName}
         defaultValue={cn(id)}
+        {...register('region')}
+        error={errors.region?.message}
       />
         <Controller
-        name="servers"
+        name="server"
         control={control}
         render={({ field: { onChange, value } }) => (
           <Select
             options={serversData}
             value={value}
             onChange={onChange}
-            label="Выберите сервер"
+            label={translation.defaultServer}
             getOptionValue={(option) => option.label}
             inPortal={false}
             placeholder=' '
@@ -101,10 +118,12 @@ export default function EditRegionForm({
         )}
       />
       <Button type="submit" className="w-full @xl:w-auto">
-        {'Сохранить'}
+        {translation.saveButton}
       </Button>
     </FormGroup>
-      
+          );
+        }}
+      </Form>
     </div>
   );
 }

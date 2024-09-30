@@ -1,12 +1,13 @@
 'use client';
 
-import { Button } from 'rizzui';
+import { Button, Select } from 'rizzui';
 import SimpleBar from '@/components/ui/simplebar';
 import EnvatoIcon from '@/components/icons/envato';
 import LayoutSwitcher from '@/components/settings/layout-switcher';
 import ColorOptions from '@/components/settings/color-options';
 import AppDirection from '@/components/settings/app-direction';
 import ThemeSwitcher from '@/components/settings/theme-switcher';
+import LanguageSwitcher from './language-switcher';
 
 export default function SettingsDrawer() {
   return (
@@ -16,6 +17,10 @@ export default function SettingsDrawer() {
           <ThemeSwitcher />
           {/* <AppDirection /> */}
           {/* <LayoutSwitcher /> */}
+          <LanguageSwitcher />
+
+
+
           <ColorOptions />
         </div>
       </SimpleBar>

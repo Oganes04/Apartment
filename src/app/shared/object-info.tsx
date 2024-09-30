@@ -10,11 +10,10 @@ import FormGroup from '@/app/shared/form-group';
 import FormFooter from '@/components/form-footer';
 import {
   defaultValues,
-  personalInfoFormSchema,
-  PersonalInfoFormTypes,
-} from '@/utils/validators/personal-info.schema';
+  objectInfoFormSchema,
+  ObjectInfoFormTypes,
+} from '@/utils/validators/object-info.schema';
 import UploadZone from '@/components/ui/file-upload/upload-zone';
-import { countries, roles, timezones } from '@/data/forms/my-details';
 import AvatarUpload from '@/components/ui/file-upload/avatar-upload';
 import { DatePicker } from '@/components/ui/datepicker';
 import PasswordSettingsView from './account-settings/password-settings';
@@ -55,16 +54,16 @@ export const tariffData = [
 
 
 export default function ObjectInfoView() {
-  const onSubmit: SubmitHandler<PersonalInfoFormTypes> = (data) => {
-    toast.success(<Text as="b">Successfully added!</Text>);
+  const onSubmit: SubmitHandler<ObjectInfoFormTypes> = (data) => {
+    toast.success(<Text as="b">Объект успешно добавлен!</Text>);
     console.log('Profile settings data ->', {
       ...data,
     });
   };
 
   return (
-    <Form<PersonalInfoFormTypes>
-      validationSchema={personalInfoFormSchema}
+    <Form<ObjectInfoFormTypes>
+      validationSchema={objectInfoFormSchema}
       // resetValues={reset}
       onSubmit={onSubmit}
       className="@container"
@@ -106,16 +105,10 @@ export default function ObjectInfoView() {
               >
                 <Input
                   placeholder="Вилла на кирова"
-                  {...register('first_name')}
-                  error={errors.first_name?.message}
+                  {...register('name')}
+                  error={errors.name?.message}
                   className="flex-grow"
                 />
-                {/* <Input
-                  placeholder="Last Name"
-                  {...register('last_name')}
-                  error={errors.last_name?.message}
-                  className="flex-grow"
-                /> */}
               </FormGroup>
 
               <FormGroup
@@ -129,6 +122,8 @@ export default function ObjectInfoView() {
                   }
                   type="text"
                   placeholder="ул. Кирова"
+                  {...register('address')}
+                  error={errors.address?.message}
                 />
               </FormGroup>
 
@@ -143,6 +138,8 @@ export default function ObjectInfoView() {
                   }
                   type="text"
                   placeholder="44.948237, 34.100327"
+                  {...register('location')}
+                  error={errors.location?.message}
                 />
               </FormGroup>
 
@@ -155,30 +152,40 @@ export default function ObjectInfoView() {
                   className="col-span-full"
                   type="text"
                   placeholder="100 м2"
+                  {...register('square')}
+                  error={errors.square?.message}
                 />
                 <Input
                   label='Количество комнат'
                   className="col-span-full"
                   type="text"
                   placeholder="3"
+                  {...register('rooms')}
+                  error={errors.rooms?.message}
                 />
                 <Input
                   label='Спальных мест'
                   className="col-span-full"
                   type="text"
                   placeholder="3 + 1"
+                  {...register('beds')}
+                  error={errors.beds?.message}
                 />
                 <Input
                   label='Максимально мест'
                   className="col-span-full"
                   type="text"
                   placeholder="5"
+                  {...register('maxpeople')}
+                  error={errors.maxpeople?.message}
                 />
                 <Input
                   label='Этаж'
                   className="col-span-full"
                   type="text"
                   placeholder="4 из 10"
+                  {...register('floor')}
+                  error={errors.floor?.message}
                 />
               </FormGroup>
               
@@ -188,13 +195,15 @@ export default function ObjectInfoView() {
               >
                 <Controller
                   control={control}
-                  name="bio"
+                  name="description"
+                  
                   render={({ field: { onChange, value } }) => (
                     <QuillEditor
                       value={value}
                       onChange={onChange}
                       className="@3xl:col-span-2 [&>.ql-container_.ql-editor]:min-h-[100px]"
                       labelClassName="font-medium text-gray-700 dark:text-gray-600 mb-1.5"
+                      
                     />
                   )}
                 />
@@ -232,18 +241,24 @@ export default function ObjectInfoView() {
                   className="col-span-full"
                   type="text"
                   placeholder="10 000"
+                  {...register('price')}
+                  error={errors.price?.message}
                 />
                 <Input
                   label='Предоплата'
                   className="col-span-full"
                   type="text"
                   placeholder="50%"
+                  {...register('prepayment')}
+                  error={errors.prepayment?.message}
                 />
                 <Input
                   label='Минимальный срок сдачи'
                   className="col-span-full"
                   type="text"
                   placeholder="5"
+                  {...register('minDate')}
+                  error={errors.minDate?.message}
                 />
               </FormGroup>
 

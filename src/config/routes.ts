@@ -145,7 +145,7 @@ export const routes = {
   clients: '/clients',
   // users: '/users',
   servers: '/servers',
-
+  widget: '/widget',
   
 
   users: {

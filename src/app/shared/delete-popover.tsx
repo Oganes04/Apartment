@@ -2,6 +2,13 @@ import { Title, Text, ActionIcon, Button, Popover } from 'rizzui';
 import TrashIcon from '@/components/icons/trash';
 import { PiTrashFill } from 'react-icons/pi';
 
+
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './delete-popover-language.json';
+import { Language } from '@/components/settings/language-types'
+
+
 type DeletePopoverProps = {
   title: string;
   description: string;
@@ -13,6 +20,12 @@ export default function DeletePopover({
   description,
   onDelete,
 }: DeletePopoverProps) {
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
   return (
     <Popover placement="left">
       <Popover.Trigger>
@@ -39,7 +52,7 @@ export default function DeletePopover({
             </Text>
             <div className="flex items-center justify-end">
               <Button size="sm" className="me-1.5 h-7" onClick={onDelete}>
-                Удалить
+                {translation.delete}
               </Button>
               <Button
                 size="sm"
@@ -47,7 +60,7 @@ export default function DeletePopover({
                 className="h-7"
                 onClick={() => setOpen(false)}
               >
-                Отмена
+                {translation.cancel}
               </Button>
             </div>
           </div>

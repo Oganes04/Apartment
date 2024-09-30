@@ -19,9 +19,9 @@ type AddCityButtonProps = {
 
 export default function AddCityButton({
   title,
-  modalBtnLabel = 'Добавить регион',
+  modalBtnLabel,
   className,
-  buttonLabel = 'Добавить',
+  buttonLabel,
 }: React.PropsWithChildren<AddCityButtonProps>) {
   const { openModal } = useModal();
 
@@ -31,7 +31,7 @@ export default function AddCityButton({
         openModal({
           view: (
             <AddCityForm
-              label='Добавить город'
+              label={modalBtnLabel}
             />
           ),
           customSize: '480px',

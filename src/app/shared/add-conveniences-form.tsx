@@ -1,22 +1,20 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
-import Image from 'next/image';
 import {
-  PiArrowLineDownBold,
-  PiFile,
-  PiFileCsv,
-  PiFileDoc,
-  PiFilePdf,
-  PiFileXls,
-  PiFileZip,
-  PiTrashBold,
   PiXBold,
 } from 'react-icons/pi';
 import { ActionIcon, Title, Text, Button, Input } from 'rizzui';
 import { useModal } from '@/app/shared/modal-views/use-modal';
 import FormGroup from './form-group';
+import { Controller, useForm, SubmitHandler } from 'react-hook-form';
+import { СonveniencesFormTypes, conveniencesFormSchema, defaultValues } from '@/utils/validators/conveniences.schema';
+import { Form } from '@/components/ui/form';
+import toast from 'react-hot-toast';
 
+  const onSubmit: SubmitHandler<СonveniencesFormTypes> = (data) => {
+    toast.success(<Text as="b">Удобство успешно добавлено!</Text>);
+  };
 
 
 
@@ -48,6 +46,20 @@ export default function AddConveniencesForm({
         </ActionIcon>
       </div>
 
+
+      <Form<СonveniencesFormTypes>
+      validationSchema={conveniencesFormSchema}
+      // resetValues={reset}
+      onSubmit={onSubmit}
+      className="@container"
+      useFormProps={{
+        mode: 'onChange',
+        defaultValues,
+      }}
+    >
+       {({ register, control, setValue, getValues, formState: { errors } }) => {
+          return (
+
       <FormGroup
       title=""
       >
@@ -60,12 +72,16 @@ export default function AddConveniencesForm({
       <Input
         placeholder=" "
         label = 'Удобство'
+        {...register('name')}
+        error={errors.name?.message}
       />
       <Button type="submit" className="w-full @xl:w-auto">
         {'Добавить'}
       </Button>
     </FormGroup>
-      
+          );
+       }}
+       </Form>
     </div>
   );
 }

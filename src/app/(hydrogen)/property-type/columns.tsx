@@ -2,13 +2,15 @@
 
 
 import { HeaderCell } from '@/components/ui/table';
-import { Badge, Text, Tooltip, ActionIcon, Input, Button, Switch } from 'rizzui';
+import { Text, Switch } from 'rizzui';
 import DeletePopover from '@/app/shared/delete-popover';
 import { Img } from '@react-email/img';
-import EditRegionButton from '@/app/shared/edit-region-button';
 import EditPropertyButton from '@/app/shared/edit-property-button';
 
-
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './language.json';
+import { Language } from '@/components/settings/language-types'
 
 type Columns = {
   sortConfig?: any;
@@ -22,11 +24,19 @@ export const getWidgetColumns = ({
   sortConfig,
   onDeleteItem,
   onHeaderCellClick,
-}: Columns) => [
+}: Columns) => {
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+  return [
+
   {
     title: (
       <HeaderCell
-        title="Название"
+        title={translation.nameColumn}
         sortable
         ascending={
           sortConfig?.direction === 'asc' && sortConfig?.key === 'name'
@@ -59,7 +69,7 @@ export const getWidgetColumns = ({
   },
 
   {
-    title: <HeaderCell title="Объектов" />,
+    title: <HeaderCell title={translation.objectsColumn} />,
     dataIndex: 'items',
     key: 'items',
     width: 150,
@@ -77,13 +87,13 @@ export const getWidgetColumns = ({
       <div className="flex items-center justify-end gap-3 pe-4">
             
             <Switch label="" />
-            <EditPropertyButton className="w-fit" title={''} id={row.name} />
+            <EditPropertyButton modalBtnLabel={translation.edit} className="w-fit" title={''} id={row.name} />
             
             
 
         <DeletePopover
-          title={`Удалить`}
-          description={`Вы уверены, что хотите удалить ${row.name}?`}
+          title={translation.deleteToolTipTitle}
+          description={translation.deleteToolTipText + ` ${row.name}?`}
           onDelete={() => onDeleteItem(row.id)}
         />
       </div>
@@ -93,5 +103,5 @@ export const getWidgetColumns = ({
     ),
   },
 ];
-
+};
 

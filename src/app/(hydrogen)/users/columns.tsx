@@ -1,16 +1,19 @@
 'use client';
 
 import { HeaderCell } from '@/components/ui/table';
-import { Badge, Text, Tooltip, ActionIcon, Input, Button, Switch, cn } from 'rizzui';
+import { Text, Tooltip, ActionIcon, Switch } from 'rizzui';
 import DeletePopover from '@/app/shared/delete-popover';
 import { Img } from '@react-email/img';
-import EditRegionButton from '@/app/shared/edit-region-button';
 import Link from 'next/link';
 import PencilIcon from '@/components/icons/pencil';
 import { routes } from '@/config/routes';
-import EditRegionForm from '@/app/shared/edit-region-form';
-import { PiCalendarPlus } from 'react-icons/pi';
 import EditSubscribtionButton from '@/app/shared/edit-subscribtion-button';
+
+
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './language.json';
+import { Language } from '@/components/settings/language-types'
 
 type Columns = {
   sortConfig?: any;
@@ -24,11 +27,18 @@ export const getUserColumns = ({
   sortConfig,
   onDeleteItem,
   onHeaderCellClick,
-}: Columns) => [
+}: Columns) => {
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
+
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+  return [
   {
     title: (
       <HeaderCell
-        title="Имя"
+        title={translation.nameColumn}
         sortable
         ascending={
           sortConfig?.direction === 'asc' && sortConfig?.key === 'name'
@@ -63,7 +73,7 @@ export const getUserColumns = ({
   {
     title: (
       <HeaderCell
-        title="Объектов"
+        title={translation.objectsColumn}
         sortable
         ascending={
           sortConfig?.direction === 'asc' && sortConfig?.key === 'items'
@@ -82,7 +92,7 @@ export const getUserColumns = ({
   {
     title: (
       <HeaderCell
-        title="Подписка"
+        title={translation.subsrciptionColumn}
         sortable
         ascending={
           sortConfig?.direction === 'asc' && sortConfig?.key === 'subscribtion'
@@ -114,7 +124,7 @@ export const getUserColumns = ({
             
             <Tooltip
               size="sm"
-              content={'Редактировать'}
+              content={translation.editToolTip}
               placement="top"
               color="invert"
             >
@@ -129,30 +139,10 @@ export const getUserColumns = ({
                 </ActionIcon>
               </Link>
             </Tooltip>
-            {/* <Tooltip
-              size="sm"
-              content={'Показать / Скрыть'}
-              placement="top"
-              color="invert"
-            >
-              <Link href={routes.invoice.details(row.id)}>
-                <ActionIcon
-                  as="span"
-                  size="sm"
-                  variant="outline"
-                  className="hover:!border-gray-900 hover:text-gray-700"
-                >
-                  <EyeIcon className="h-4 w-4" />
-                </ActionIcon>
-              </Link>
-            </Tooltip> */}
-
-            
-            
 
         <DeletePopover
-          title={`Удалить`}
-          description={`Вы уверены, что хотите удалить ${row.name}?`}
+          title={translation.deleteToolTipTitle}
+          description={translation.deleteToolTipText +` ${row.name}?`}
           onDelete={() => onDeleteItem(row.id)}
         />
       </div>
@@ -161,7 +151,8 @@ export const getUserColumns = ({
 
     ),
   },
-];
+  ];
+};
 
 
 function openModal(arg0: { view: import("react").JSX.Element; customSize: string; }): void {

@@ -1,14 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import { HeaderCell } from '@/components/ui/table';
-import { Badge, Text, Tooltip, ActionIcon, Switch } from 'rizzui';
-import { routes } from '@/config/routes';
-import EyeIcon from '@/components/icons/eye';
-import PencilIcon from '@/components/icons/pencil';
-import TableAvatar from '@/components/ui/avatar-card';
-import DateCell from '@/components/ui/date-cell';
-import DeletePopover from '@/app/shared/delete-popover';
+import { Badge, Text, Switch } from 'rizzui';
+
+import Cookies from 'js-cookie';
+import { useState, useEffect } from 'react';
+import translations from './../language.json';
+import { Language } from '@/components/settings/language-types'
+
 
 function getStatusBadge(status: string) {
   switch (status.toLowerCase()) {
@@ -54,10 +53,17 @@ export const getColumns = ({
   sortConfig,
   onDeleteItem,
   onHeaderCellClick,
-}: Columns) => [
+}: Columns) => {
+  const [translation, setTranslation] = useState(translations['ru']);  // По умолчанию 'ru'
 
+  useEffect(() => {
+    const langFromCookie = (Cookies.get('language') || 'ru') as Language;
+    setTranslation(translations[langFromCookie]);  // Устанавливаем переводы на основе языка из куки
+  }, []);
+
+  return [
   {
-    title: <HeaderCell title="Название" />,
+    title: <HeaderCell title={translation.nameColumn} />,
     dataIndex: 'name',
     key: 'name',
     width: 150,
@@ -65,13 +71,6 @@ export const getColumns = ({
       <Text className="font-medium text-gray-700" >{value}</Text>
     ),
   },
-  // {
-  //   title: <HeaderCell title="Статус" />,
-  //   dataIndex: 'status',
-  //   key: 'status',
-  //   width: 140,
-  //   render: (value: string) => getStatusBadge(value),
-  // },
   {
  
     title: <HeaderCell title="Actions" className="opacity-0" />,
@@ -81,147 +80,17 @@ export const getColumns = ({
     render: (_: string, row: any) => (
       <div className="flex items-center justify-end gap-3 pe-4">
         <Switch label="" />
-        {/* <Tooltip
-          size="sm"
-          content={'Редактировать'}
-          placement="top"
-          color="invert"
-        >
-          <Link href={routes.eCommerce.editOrder(row.id)}>
-            <ActionIcon
-              as="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <PencilIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
-        </Tooltip> */}
-        {/* <Tooltip
-          size="sm"
-          content={'Показать / Скрыть'}
-          placement="top"
-          color="invert"
-        >
-          <Link href={routes.eCommerce.orderDetails(row.id)}>
-            <ActionIcon
-              as="span"
-              size="sm"
-              variant="outline"
-              className="hover:text-gray-700"
-            >
-              <EyeIcon className="h-4 w-4" />
-            </ActionIcon>
-          </Link>
-        </Tooltip> */}
-        {/* <DeletePopover
-          title={`Delete the order`}
-          description={`Are you sure you want to delete this #${row.id} order?`}
-          onDelete={() => onDeleteItem(row.id)}
-        /> */}
       </div>
     ),
   },
 ];
+};
 
 export const getWidgetColumns = ({
   sortConfig,
   onDeleteItem,
   onHeaderCellClick,
 }: Columns) => [
-//   {
-//     title: (
-//       <HeaderCell title="Order ID" className="ps-4 [&>div]:whitespace-nowrap" />
-//     ),
-//     dataIndex: 'id',
-//     key: 'id',
-//     width: 90,
-//     render: (value: string, row: any) => (
-//       <Link
-//         href={routes.eCommerce.editOrder(row.id)}
-//         className="ps-4 hover:text-gray-900 hover:underline"
-//       >
-//         #{value}
-//       </Link>
-//     ),
-//   },
-//   {
-//     title: <HeaderCell title="Customer" />,
-//     dataIndex: 'customer',
-//     key: 'customer',
-//     width: 300,
-//     render: (_: any, row: any) => (
-
-//       <Text className="font-medium text-gray-700">{row.name}</Text>
-//     ),
-//   },
-//   {
-//     title: <HeaderCell title="Items" />,
-//     dataIndex: 'items',
-//     key: 'items',
-//     width: 150,
-//     render: (value: string) => (
-//       <Text className="font-medium text-gray-700">{value}</Text>
-//     ),
-//   },
-//   {
-//     title: (
-//       <HeaderCell
-//         title="Price"
-//         sortable
-//         ascending={
-//           sortConfig?.direction === 'asc' && sortConfig?.key === 'price'
-//         }
-//       />
-//     ),
-//     onHeaderCell: () => onHeaderCellClick('price'),
-//     dataIndex: 'price',
-//     key: 'price',
-//     width: 150,
-//     render: (value: string) => (
-//       <Text className="font-medium text-gray-700">${value}</Text>
-//     ),
-//   },
-//   {
-//     title: (
-//       <HeaderCell
-//         title="Created"
-//         sortable
-//         ascending={
-//           sortConfig?.direction === 'asc' && sortConfig?.key === 'createdAt'
-//         }
-//       />
-//     ),
-//     onHeaderCell: () => onHeaderCellClick('createdAt'),
-//     dataIndex: 'createdAt',
-//     key: 'createdAt',
-//     width: 200,
-//     render: (createdAt: Date) => <DateCell date={createdAt} />,
-//   },
-//   {
-//     title: (
-//       <HeaderCell
-//         title="Modified"
-//         sortable
-//         ascending={
-//           sortConfig?.direction === 'asc' && sortConfig?.key === 'updatedAt'
-//         }
-//       />
-//     ),
-//     onHeaderCell: () => onHeaderCellClick('updatedAt'),
-//     dataIndex: 'updatedAt',
-//     key: 'updatedAt',
-//     width: 200,
-//     render: (value: Date) => <DateCell date={value} />,
-//   },
-//   {
-//     title: <HeaderCell title="Status" />,
-//     dataIndex: 'status',
-//     key: 'status',
-//     width: 140,
-//     render: (value: string) => getStatusBadge(value),
-//   },
   {
 
     title: <HeaderCell title="Actions" className="opacity-0" />,
@@ -229,49 +98,6 @@ export const getWidgetColumns = ({
     key: 'action',
     width: 130,
     render: (_: string, row: any) => (
-    //   <div className="flex items-center justify-end gap-3 pe-4">
-    //     <Tooltip
-    //       size="sm"
-    //       content={'Edit Order'}
-    //       placement="top"
-    //       color="invert"
-    //     >
-    //       <Link href={routes.eCommerce.editOrder(row.id)}>
-    //         <ActionIcon
-    //           as="span"
-    //           size="sm"
-    //           variant="outline"
-    //           aria-label={'Edit Order'}
-    //           className="hover:text-gray-700"
-    //         >
-    //           <PencilIcon className="h-4 w-4" />
-    //         </ActionIcon>
-    //       </Link>
-    //     </Tooltip>
-    //     <Tooltip
-    //       size="sm"
-    //       content={'View Order'}
-    //       placement="top"
-    //       color="invert"
-    //     >
-    //       <Link href={routes.eCommerce.orderDetails(row.id)}>
-    //         <ActionIcon
-    //           as="span"
-    //           size="sm"
-    //           variant="outline"
-    //           aria-label={'View Order'}
-    //           className="hover:text-gray-700"
-    //         >
-    //           <EyeIcon className="h-4 w-4" />
-    //         </ActionIcon>
-    //       </Link>
-    //     </Tooltip>
-    //     <DeletePopover
-    //       title={`Delete the order`}
-    //       description={`Are you sure you want to delete this #${row.id} order?`}
-    //       onDelete={() => onDeleteItem(row.id)}
-    //     />
-    //   </div>
     <></>
     ),
   },

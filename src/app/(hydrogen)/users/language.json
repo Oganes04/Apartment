@@ -1,0 +1,22 @@
+{
+    "ru": {
+        "pageTitle": "Список пользователей",
+        "addButton": "Добавить",
+        "nameColumn": "Имя",
+        "objectsColumn": "Объекты",
+        "subsrciptionColumn": "Подписка",
+        "editToolTip": "Редактировать",
+        "deleteToolTipTitle": "Удалить",
+        "deleteToolTipText": "Вы уверены, что хотите удалить" 
+    },
+    "en": {
+        "pageTitle": "User list",
+        "addButton": "Add",
+        "nameColumn": "Name",
+        "objectsColumn": "Objects",
+        "subsrciptionColumn": "subscription",
+        "editToolTip": "Edit",
+        "deleteToolTipTitle": "Delete",
+        "deleteToolTipText": "Are you sure you want to delete" 
+    }
+}
